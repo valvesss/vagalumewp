@@ -5,36 +5,43 @@ class Artist():
         self.url = artist['url']
         self.picsmall = artist['pic_small']
         self.medium = artist['pic_medium']
+        self.rank = Rank(artist['rank'])
+        self.genre = Genre(artist['genre'])
+        self.related = Related(artist['related'])
+        self.toplyrics = Toplyrics(['toplyrics'])
+        self.albums = Albums(artist['albums']['item'])
 
-class Rank():
-    def __init__(self, rank):
-        self.pos = rank['pos']
-        self.period = rank['period']
-        self.views = rank['views']
-        self.uniques = rank['uniques']
-        self.points = rank['points']
+    def get_genre(self):
+        return self.genre
 
-class Genre():
-    def __init__(self, genre):
-        self.name = genre['name']
-        self.url = genre['url']
+    def get_rank(self):
+        return self.rank
 
-class Related():
-    def __init__(self, related):
-        self.id = related['id']
-        self.name = related['name']
-        self.url = related['url']
-        
-class Toplyrics():
-    def __init__(self, toplyrics):
-        self.id = toplyrics['id']
-        self.desc = toplyrics['desc']
-        self.url = toplyrics['url']
+class Rank(list):
+    def add_rank(self, rank):
+        self.rank = []
+        self.rank.append(rank['pos'], rank['period'], rank['views'], rank['uniques'], rank['points'])
 
-class Albums():
-    def __init__(self, album):
-        self.id = album['id']
-        self.desc = album['desc']
-        self.url = album['url']
-        self.year = album['year']
-        self.label = album['label']
+class Genre(list):
+
+    def add_genre(self, genre):
+        self.all_genres = []
+        self.all_genres.append(genre['name'], genre['url'])
+
+class Related(list):
+
+    def add_relate(self, related):
+        self.all_relates = []
+        self.all_relates.append(related['id'], related['name'], related['url'])
+
+class Toplyrics(list):
+
+    def add_toplyrics(self, toplyrics):
+        self.all_toplyrics = []
+        self.all_toplyrics.append(toplyrics['id'], toplyrics['desc'], toplyrics['url'])
+
+class Albums(list):
+
+    def add_album(self, albums):
+        self.all_albums = []
+        self.all_albums.append(album['id'], album['desc'], album['url'], album['year'], album['label'])

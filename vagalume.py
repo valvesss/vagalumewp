@@ -1,34 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import requests, sys
-import classes as cl
+import requests, sys, classes
 from pprint import pprint
 
 """
 Wrapper for vagalume lyrics search
 """
 
-def search_method(artist_name, song_name=None):
+api_base_url = 'https://api.vagalume.com.br/'
+api_base_url_auth = 'https://api.vagalume.com.br/search.php'
 
-    # Api base url
-    API_URL = 'https://api.vagalume.com.br/' + artist_name + '/index.js'
+class Main():
+    def __init__(self, artist_name):
+        self.name = artist_name
 
-    # URL params
-    params = {
-        'art': artist_name,
-        'mus': song_name
-    }
 
-    # Try to get artist data
-    try:
-        response = requests.get(API_URL)
-    except Exception as e:
-        print("An error ocurred in get request: {}".format(e))
-        sys.exit(0)
+def api_request():
 
-    # Parse data
-    data = response.json()
-    pprint(data['artist']['rank'])
-    sys.exit(0)
+        api_search = api_base_url + artist_name + '/index.js'
 
-search_method("dkapwokdapodkaopdk")
+        try:
+            response = requests.get(api_search)
+        except Exception as e:
+            print("An error ocurred in get request: {}".format(e))
+            sys.exit(0)
+
+        data = response.json()
+        return classes.Artist(data['artist'])
+
+def get_rankpos(name):
+    print("The rankd")
+    rank_raw = self.connector.get_rank()
+    print(rank_raw)
+
+name = input("Name of the artist: ")
+api_request(name)
+get_rankpos(name)
