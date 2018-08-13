@@ -1,5 +1,7 @@
+# Vagalume Wrapper
 ![](logo/vagalume-logo.png)
-# VagalumeWP
 
-The vagalume bot is a wrapper for vagalume searches. It provides simples librarys
-to get data from artists, musics, lyrics, albums, discography, and more.
+Vagalume WP helps you to use Vagalume API's. API's wrapped by VagalumeWP are explorable
+and follow a simple interaction pattern that works uniformly so developers don't need to learn how to use a new coding interface/style for each service API.
+
+It provides librarys to search by genre, artists, musics, lyrics, albums and discographys.
