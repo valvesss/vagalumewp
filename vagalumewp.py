@@ -1,4 +1,4 @@
-import requests, sys, classes, os, json
+import requests, sys, classes, os, re
 from pprint import pprint
 
 """
@@ -12,7 +12,6 @@ class ApiRequest():
         self.__song = song
 
     def main(self):
-        print("Hey, I'm in")
         # API Urls
         api_url_v1 = r'https://api.vagalume.com.br'
         api_search = api_url_v1 + r'/search.php'
@@ -37,7 +36,6 @@ class ApiRequest():
         response2 = api_request(api_url_v2)
 
         self.__conn2 = classes.Artist(response2['artist'])
-        print("Hey, I'm out")
 
     # Return most acessed musics by artist
     def get_n_music_acessed(self, number):
@@ -60,7 +58,15 @@ class ApiRequest():
 
     def get_frequent_words(self):
         song = self.__conn1.get_text()
-        
+        wordlist = song.split()
+
+        file = open('stop-words/portuguese.txt', 'r')
+        stopword_br = file.readlines()
+        file.close()
+
+        result = list(set(wordlist) - set(stopword_br))
+        common =  max(set(result), key=result.count)
+        return common
 
 def check_response(response):
 

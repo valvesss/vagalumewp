@@ -9,6 +9,9 @@ class Song(object):
     def get_text(self):
         return self.__text
 
+    def get_name(self):
+        return self.__name
+
 class Artist(object):
     def __init__(self, artist):
         self.__rank = Rank.rank(artist['rank'])
