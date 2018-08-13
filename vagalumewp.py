@@ -69,7 +69,6 @@ class ApiRequest():
         return common
 
 def check_response(response):
-
     error_msg = None
 
     if response['type'] == 'notfound':
@@ -85,7 +84,6 @@ def check_response(response):
         return True
 
 def api_request(url, params=None):
-
     try:
         response = requests.get(url, params=params)
         return response.json()
