@@ -1,4 +1,4 @@
-[[https://github.com/valvesss/vagalumewp/master/logo/vagalume-logo.png]]
+[[https://github.com/valvesss/vagalumewp/master/logo/vagalume-logo.png|alt=octocat]]
 # VagalumeWP
 
 The vagalume bot is a wrapper for vagalume searches. It provides simples librarys
