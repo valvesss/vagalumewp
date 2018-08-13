@@ -1,5 +1,15 @@
-class Artist(object):
+class Song(object):
+    def __init__(self, song):
+        self.__id = song['id']
+        self.__lang = song['lang']
+        self.__name = song['name']
+        self.__text = song['text']
+        self.__url = song['url']
 
+    def get_text(self):
+        return self.__text
+
+class Artist(object):
     def __init__(self, artist):
         self.__rank = Rank.rank(artist['rank'])
         self.__top_lyrics = Toplyrics.top_lyrics(artist['toplyrics']['item'])
