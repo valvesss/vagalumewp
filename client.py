@@ -8,7 +8,7 @@ os.system('clear')
 name = input("Name of the artist to search: ")
 song = input("Name of the song to search: ")
 
-# Start connection to object with the given name
+# Start connection to object with the given name and song
 connection = vagalumewp.ApiRequest(name, song)
 
 # Initialize constructors
