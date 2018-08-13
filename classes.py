@@ -1,57 +1,80 @@
-from pprint import pprint
+class Artist(object):
 
-class Artist():
     def __init__(self, artist):
-        self.id = artist['id']
-        self.name = artist['desc']
-        self.url = artist['url']
-        self.pic_small = artist['pic_small']
-        self.pic_medium = artist['pic_medium']
-        self.rank = Rank.Rank(artist['rank'])
-        self.genre = Genre.Genre(artist['genre'])
-        # self.related = Related(artist['related'])
-        self.top_lyrics = Toplyrics(['toplyrics'])
-        self.albums = Albums(artist['albums']['item'])
+        self.__rank = Rank.rank(artist['rank'])
+        self.__top_lyrics = Toplyrics.top_lyrics(artist['toplyrics']['item'])
+        self.__albums = Albums.albums(artist['albums']['item'])
+        ## NOT IMPLEMENTED BUT WORKING
+        # self.__id = artist['id']
+        # self.__name = artist['desc']
+        # self.__url = artist['url']
+        # self.__pic_small = artist['pic_small']
+        # self.__pic_medium = artist['pic_medium']
+        # self.__genre = Genre.Genre(artist['genre'])
+        # self.__related = Related.Related(artist['related'])
 
     def get_rank(self):
-        return self.rank
+        return self.__rank
 
-    def get_genre(self):
-        return self.genre
+    def get_top_lyrics(self):
+        return self.__top_lyrics
 
+    def get_albums(self):
+        return self.__albums
 
-class Rank():
+        ## NOT IMPLEMENTED BUT WORKING
+        # def get_id(self):
+        #     return self.__id
+        # def get_name(self):
+        #     return self.__name
+        # def get_url(self):
+        #     return self.__url
+        # def get_pic_small(self):
+        #     return self.__pic_small
+        # def get_pic_medium(self):
+        #     return self.__pic_medium
+        # def get_genre(self):
+        #     return self.__genre
+        # def get_related(self):
+        #     return self.__related
 
-    def Rank(rank):
-        all_rank = {}
+class Rank(object):
+
+    def rank(rank):
+        artist_rank = {}
         for key, value in rank.items():
-            all_rank[key] = value
-        return all_rank
+            artist_rank[key] = value
+        return artist_rank
 
-class Genre():
+class Toplyrics(object):
 
-    def Genre(genre):
-        all_genres = {}
-        for item in genre:
-            all_genres[item['name']] = item['url']
-        return all_genres
+    def top_lyrics(top_lyrics):
+        artist_top_lyrics = []
+        for x in range(len(top_lyrics)):
+            artist_top_lyrics.append(top_lyrics[x])
+        return artist_top_lyrics
 
-# class Related(list):
+class Albums(object):
+
+    def albums(albums):
+        artist_albums = []
+        for x in range(len(albums)):
+            artist_albums.append(albums[x])
+        return artist_albums
+
+## NOT IMPLEMENTED BUT WORKING
+# class Genre(object):
 #
-#     def Related(related):
-#         all_relateds = {}
-#         for item in related:
-#             all_relateds
-#         self.all_relates.append(related['id'], related['name'], related['url'])
-
-class Toplyrics(list):
-
-    def add_toplyrics(self, toplyrics):
-        self.all_top_lyrics = []
-        self.all_top_lyrics.append(toplyrics['id'], toplyrics['desc'], toplyrics['url'])
-
-class Albums(list):
-
-    def add_album(self, albums):
-        self.all_albums = []
-        self.all_albums.append(album['id'], album['desc'], album['url'], album['year'], album['label'])
+#     def genre(genre):
+#         artist_genres = []
+#         for x in range(len(genre))
+#             artist_genres.append(genre[x])
+#         return artist_genres
+#
+# class Related(object):
+#
+#     def related(related):
+#         artist_relates = []
+#         for x in range(len(related))
+#             artist_relates.append(related[x])
+#         return artist_relates
