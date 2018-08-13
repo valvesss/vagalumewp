@@ -7,32 +7,48 @@ from pprint import pprint
 Wrapper for vagalume lyrics search
 """
 
-api_base_url = 'https://api.vagalume.com.br/'
-api_base_url_auth = 'https://api.vagalume.com.br/search.php'
 
-class Main():
-    def __init__(self, artist_name):
-        self.name = artist_name
+# def api_request(artist, song=None):
+#
+#     params = {}
+#     params['art'] = artist
+#     params['mus'] = song
+#
+#     response = requests.get(api_base_url, params=params)
+#     print(response)
+#     sys.exit(0)
+#     data = response.json()
+#     return True
 
+def get_artist(name, limit=None):
 
-def api_request():
+    api_base_url = 'https://api.vagalume.com.br/search.php'
+    api_base_url += '.art?q=' + name
+    
+    if limit:
+        api_base_url += '&limit=' + limit
 
-        api_search = api_base_url + artist_name + '/index.js'
+    response = requests.get(api_base_url)
+    print(type(response))
 
-        try:
-            response = requests.get(api_search)
-        except Exception as e:
-            print("An error ocurred in get request: {}".format(e))
-            sys.exit(0)
-
-        data = response.json()
-        return classes.Artist(data['artist'])
-
-def get_rankpos(name):
-    print("The rankd")
-    rank_raw = self.connector.get_rank()
-    print(rank_raw)
-
-name = input("Name of the artist: ")
-api_request(name)
-get_rankpos(name)
+get_artist("rihanna")
+# def api_request(artist_name):
+#
+#         api_search = api_base_url + artist_name + '/index.js'
+#
+#         try:
+#             response = requests.get(api_search)
+#         except Exception as e:
+#             print("An error ocurred in get request: {}".format(e))
+#             sys.exit(0)
+#
+#         data = response.json()
+#         return classes.Artist(data['artist'])
+#
+# def get_rankpos(conn, name):
+#     rank_raw = conn.get_genre()
+#     print("The rank: ", rank_raw)
+#
+# name = input("Name of the artist: ")
+# conn = api_request(name)
+# get_rankpos(conn, name)
