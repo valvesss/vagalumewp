@@ -7,3 +7,4 @@ and follow a simple interaction pattern that works uniformly so developers don't
 It provides librarys to search by genre, artists, musics, lyrics, albums and discographys.
 
 Provider content and API: https://www.vagalume.com.br/
+Provider stopwords: https://github.com/Alir3z4/stop-words
