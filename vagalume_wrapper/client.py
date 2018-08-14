@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import vagalumewp, os
-from pprint import pprint
 
 os.system('clear')
 
@@ -27,6 +26,9 @@ print("\nArtist position in vagalume rank:", connection.get_artist_position())
 # Print the artist last album
 print("\nArtist last album:", connection.get_artist_last_album())
 
-# Print most frequent words in given music
 ### WORKS NICE FOR BRAZILIANS SINGERS
-print("\nArtist \"{}\" music most frequent word : {}".format(song,connection.get_frequent_words()))
+# Print most frequent words in given music
+print("\nArtist \"{}\" music most frequent word : {}".format(song,connection.get_frequent_word()))
+
+# Print most frequent words for given last albums
+# print("\nArtist \"{}\" music most frequent word : {}".format(song,connection.get_frequent_word()))

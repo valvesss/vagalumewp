@@ -1,5 +1,4 @@
-import requests, sys, os, re
-from pprint import pprint
+import requests, os
 import vagalume_objects as vgo
 
 """
@@ -47,7 +46,7 @@ class ApiRequest():
         albums = self.conn_artist.__dict__['albums']['item']
         return albums[0]
 
-    def get_frequent_words(self):
+    def get_frequent_word(self):
         song = self.conn_song.__dict__['name']
         wordlist = song.split()
 
