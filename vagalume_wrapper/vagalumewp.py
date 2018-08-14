@@ -30,7 +30,7 @@ class ApiRequest():
 
     # Return most acessed musics by artist
     def get_n_music_acessed(self, number):
-        lyrics = self.conn_artist.top_lyrics
+        lyrics = self.conn_artist.__dict__['toplyrics']['item']
         if number == "all":
             return lyrics
         else:
@@ -40,15 +40,15 @@ class ApiRequest():
                 raise ValueError('Please, use a number higher than 0.')
 
     def get_artist_position(self):
-        rank = self.conn_artist.rank
+        rank = self.conn_artist.__dict__['rank']
         return rank['pos']
 
     def get_artist_last_album(self):
-        albums = self.conn_artist.albums
+        albums = self.conn_artist.__dict__['albums']['item']
         return albums[0]
 
     def get_frequent_words(self):
-        song = self.conn_song.name
+        song = self.conn_song.__dict__['name']
         wordlist = song.split()
 
         file = open('../stop-words/portuguese.txt', 'r')

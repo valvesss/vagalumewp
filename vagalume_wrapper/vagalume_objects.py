@@ -1,23 +1,18 @@
+import sys
+from pprint import pprint
 class Song(object):
     def __init__(self, song):
-        self.id = song['id']
-        self.lang = song['lang']
-        self.name = song['name']
-        self.text = song['text']
-        self.url = song['url']
+        # Available keys: id, lang, name, text, url
+        for key, value in song.items():
+            self.__dict__[key] = value
 
 class Artist(object):
     def __init__(self, artist):
-        self.id = artist['id']
-        self.name = artist['desc']
-        self.url = artist['url']
-        self.pic_small = artist['pic_small']
-        self.pic_medium = artist['pic_medium']
-        self.rank = Rank.rank(artist['rank'])
-        self.top_lyrics = Toplyrics.top_lyrics(artist['toplyrics']['item'])
-        self.albums = Albums.albums(artist['albums']['item'])
-        self.genre = Genre.genre(artist['genre'])
-        self.related = Related.related(artist['related'])
+        # Available keys: id, name, url, pic_small
+        # pic_medium, rank, top_lyrics, albums
+        # genre and related
+        for key, value in artist.items():
+            self.__dict__[key] = value
 
 class Rank(object):
     def rank(rank):
@@ -30,7 +25,6 @@ class Genre(object):
 class Related(object):
     def related(related):
         return [related[x] for x in range(len(related))]
-
 
 class Toplyrics(object):
     def top_lyrics(top_lyrics):
