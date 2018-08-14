@@ -8,18 +8,18 @@ Wrapper for vagalume lyrics search
 class ApiRequest():
 
     def __init__(self, artist, song):
-        self.__artist = artist
-        self.__song = song
+        self.artist = artist
+        self.song = song
 
     def main(self):
         # API Urls
         api_url_v1 = r'https://api.vagalume.com.br/search.php'
-        api_url_v2 = r'https://vagalume.com.br/' + self.__artist + '/index.js'
+        api_url_v2 = r'https://vagalume.com.br/' + self.artist + '/index.js'
 
         # API Params
         params = {
-        'art': self.__artist,
-        'mus': self.__song
+        'art': self.artist,
+        'mus': self.song
         }
 
         response1 = api_request(api_url_v1, params)
