@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import vagalumewp, classes, os
+import vagalumewp, os
 from pprint import pprint
 
 os.system('clear')
