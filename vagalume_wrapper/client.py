@@ -18,7 +18,8 @@ print("Informations about {} !\n".format(name.title()))
 
 # Print the number of music most acessed
 print("Set a number to retrieve musics most acessed!")
-pprint(connection.get_n_music_acessed(int(input("Number: "))))
+musics = connection.get_n_music_acessed(int(input("Number: ")))
+print(musics)
 
 # Print the artist position in vagalume rank
 print("\nArtist position in vagalume rank:", connection.get_artist_position())
@@ -30,5 +31,6 @@ print("\nArtist last album:", connection.get_artist_last_album())
 # Print most frequent words in given music
 print("\nArtist \"{}\" music most frequent word : {}".format(song,connection.get_frequent_word()))
 
+## WORKING ON
 # Print most frequent words for given last albums
-# print("\nArtist \"{}\" music most frequent word : {}".format(song,connection.get_frequent_word()))
+# print("\nArtist \"{}\" albums most frequent word : {}".format(song,connection.get_frequent_words(musics)))

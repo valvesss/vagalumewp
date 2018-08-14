@@ -49,14 +49,22 @@ class ApiRequest():
     def get_frequent_word(self):
         song = self.conn_song.__dict__['name']
         wordlist = song.split()
-
-        file = open('../stop-words/portuguese.txt', 'r')
-        stopword_br = file.readlines()
-        file.close()
-
+        stopword_br = get_stopword("portuguese")
         result = list(set(wordlist) - set(stopword_br))
         common =  max(set(result), key=result.count)
         return common
+
+    ## WORKING ON
+    # def get_frequent_words(self, albums):
+    #     wordlist = []
+    #     for item in albums:
+    #         wordlist.append(item.split())
+    #     stopword_br = get_stopword("portuguese")
+    #     common = []
+    #     for item in wordlist:
+    #         result = list(set(item) - set(stopword_br))
+    #         common.append(max(set(result)), key=result.count)
+    #     return common
 
 def check_response(response):
 
@@ -74,3 +82,9 @@ def api_request(url, params=None):
     response = requests.get(url, params=params).json()
     check_response(response)
     return response
+
+def get_stopword(lang):
+    file = open('../stop-words/' + lang + '.txt', 'r')
+    stopword = file.readlines()
+    file.close()
+    return stopword
