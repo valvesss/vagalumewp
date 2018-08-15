@@ -1,5 +1,6 @@
-import requests, os
+import requests, os, sys
 import vagalume_objects as vgo
+from pprint import pprint
 
 """
 Wrapper for vagalume lyrics search
@@ -13,8 +14,8 @@ class ApiRequest():
 
     def main(self):
         # API Urls
-        api_url_v1 = r'https://api.vagalume.com.br/search.php'
-        api_url_v2 = r'https://vagalume.com.br/' + self.artist + '/index.js'
+        self.api_url_v1 = r'https://api.vagalume.com.br/search.php'
+        self.api_url_v2 = r'https://vagalume.com.br/' + self.artist + '/index.js'
 
         # API Params
         params = {
@@ -22,9 +23,9 @@ class ApiRequest():
         'mus': self.song
         }
 
-        response1 = api_request(api_url_v1, params)
+        response1 = api_request(self.api_url_v1, params)
         self.conn_song = vgo.Song(response1['mus'][0])
-        response2 = api_request(api_url_v2)
+        response2 = api_request(self.api_url_v2)
         self.conn_artist = vgo.Artist(response2['artist'])
 
     # Return most acessed musics by artist
@@ -33,8 +34,9 @@ class ApiRequest():
         if number == "all":
             return lyrics
         else:
-            if isinstance(number, int) and number >= 1:
-                return lyrics[:number]
+            if int(number) >= 1:
+                self.acessed_lyrics = lyrics[:int(number)]
+                return self.acessed_lyrics
             else:
                 raise ValueError('Please, use a number higher than 0.')
 
@@ -47,7 +49,7 @@ class ApiRequest():
         return albums[0]
 
     def get_frequent_word(self):
-        song = self.conn_song.__dict__['name']
+        song = self.conn_song.__dict__['text']
         wordlist = song.split()
         stopword_br = get_stopword("portuguese")
         result = list(set(wordlist) - set(stopword_br))
@@ -55,10 +57,20 @@ class ApiRequest():
         return common
 
     ## WORKING ON
-    # def get_frequent_words(self, albums):
+    # def get_frequent_words(self):
     #     wordlist = []
-    #     for item in albums:
-    #         wordlist.append(item.split())
+    #     for item in self.acessed_lyrics:
+    #         params = {
+    #             'art': self.artist,
+    #             'mus': item['desc']
+    #         }
+    #         response = api_request(self.api_url_v1, params)
+    #         for word in response['mus']['text'].split():
+    #             print(word)
+    #             wordlist.append(word)
+    #     pprint(wordlist)
+    #     sys.exit(0)
+    #
     #     stopword_br = get_stopword("portuguese")
     #     common = []
     #     for item in wordlist:
