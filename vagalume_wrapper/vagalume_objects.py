@@ -1,4 +1,3 @@
-import sys
 class Song(object):
     def __init__(self, song):
         # Available keys: id, lang, name, text, url

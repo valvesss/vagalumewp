@@ -31,14 +31,15 @@ class ApiRequest():
     # Return most acessed musics by artist
     def get_n_music_acessed(self, number):
         lyrics = self.conn_artist.__dict__['toplyrics']['item']
-        if number == "all":
-            return lyrics
-        else:
-            if int(number) >= 1:
+        # If zero, return all
+        if isinstance(number, int):
+            if number == 0:
+                return lyrics
+            else:
                 self.acessed_lyrics = lyrics[:int(number)]
                 return self.acessed_lyrics
-            else:
-                raise ValueError('Please, use a number higher than 0.')
+        else:
+            raise ValueError('Please, use a number.')
 
     def get_artist_position(self):
         rank = self.conn_artist.__dict__['rank']
@@ -56,30 +57,21 @@ class ApiRequest():
         common =  max(set(result), key=result.count)
         return common
 
-    ## WORKING ON
-    # def get_frequent_words(self):
-    #     wordlist = []
-    #     for item in self.acessed_lyrics:
-    #         params = {
-    #             'art': self.artist,
-    #             'mus': item['desc']
-    #         }
-    #         response = api_request(self.api_url_v1, params)
-    #         for word in response['mus']['text'].split():
-    #             print(word)
-    #             wordlist.append(word)
-    #     pprint(wordlist)
-    #     sys.exit(0)
-    #
-    #     stopword_br = get_stopword("portuguese")
-    #     common = []
-    #     for item in wordlist:
-    #         result = list(set(item) - set(stopword_br))
-    #         common.append(max(set(result)), key=result.count)
-    #     return common
+    def get_frequent_words(self):
+        frequent_word = {}
+        stopword_br = get_stopword("portuguese")
+        params = {
+            'art': self.artist,
+        }
+        for item in self.acessed_lyrics:
+            params['mus'] = item['desc']
+            response = api_request(self.api_url_v1, params)
+            split_song = response['mus'][0]['text'].split()
+            result = list(set(split_song) - set(stopword_br))
+            frequent_word[item['desc']] = max(set(result), key=result.count)
+        return frequent_word
 
 def check_response(response):
-
     if 'type' in response.keys() and response['type'] == 'notfound':
         raise ValueError('Artist not found! Try again.')
 
@@ -90,7 +82,6 @@ def check_response(response):
         return True
 
 def api_request(url, params=None):
-
     response = requests.get(url, params=params).json()
     check_response(response)
     return response
