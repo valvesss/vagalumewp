@@ -15,16 +15,17 @@ class ApiRequest():
     def main(self):
         # API Urls
         self.api_url_v1 = r'https://api.vagalume.com.br/search.php'
-        self.api_url_v2 = r'https://vagalume.com.br/' + self.artist + '/index.js'
+        self.api_url_v2 = r'https://vagalume.com.br/' + self.artist.replace(' ','-') + '/index.js'
 
         # API Params
         params = {
-        'art': self.artist,
-        'mus': self.song
+            'art': self.artist,
+            'mus': self.song
         }
 
         response1 = api_request(self.api_url_v1, params)
         self.conn_song = vgo.Song(response1['mus'][0])
+
         response2 = api_request(self.api_url_v2)
         self.conn_artist = vgo.Artist(response2['artist'])
 
@@ -71,7 +72,14 @@ class ApiRequest():
             frequent_word[item['desc']] = max(set(result), key=result.count)
         return frequent_word
 
+def api_request(url, params=None):
+    response = requests.get(url, params=params).json()
+    return check_response(response)
+
 def check_response(response):
+    if not isinstance(response, dict):
+        raise ValueError('Artist not found! Try again.')
+
     if 'type' in response.keys() and response['type'] == 'notfound':
         raise ValueError('Artist not found! Try again.')
 
@@ -79,12 +87,7 @@ def check_response(response):
         raise ValueError('Song not found! Try again.')
 
     else:
-        return True
-
-def api_request(url, params=None):
-    response = requests.get(url, params=params).json()
-    check_response(response)
-    return response
+        return response
 
 def get_stopword(lang):
     file = open('../stop-words/' + lang + '.txt', 'r')
