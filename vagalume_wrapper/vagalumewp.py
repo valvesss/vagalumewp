@@ -1,6 +1,5 @@
-import requests, os, sys
+import requests, os
 import vagalume_objects as vgo
-from pprint import pprint
 
 """
 Wrapper for vagalume lyrics search
